@@ -7,7 +7,7 @@ export default function Home() {
         <Typography variant="h4" gutterBottom>
           Welcome to Next.js!
         </Typography>
-        <Typography variant="body1" gutterBottom>
+        <Typography  variant="body1" gutterBottom>
           This is a simple Next.js app with Material-UI and CSS Modules.
         </Typography>
       </Box>
