@@ -13,13 +13,15 @@ const STYLES = {
     backgroundColor: "transparent",
     justifyContent: "space-between",
     alignItems: "center",
+    paddingTop: "1.5rem",
+    paddingLeft: "1.5rem",
   },
 };
 
 const Header = () => {
   return (
     <Stack direction="row" sx={STYLES.header}>
-      <Image alt="logo" src={logo} width={190} height={90} />
+      <Image alt="logo" src={logo} width={200} height={105} />
     </Stack>
   );
 };
