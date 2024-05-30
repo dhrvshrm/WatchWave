@@ -4,20 +4,18 @@ import React from "react";
 const STYLES = {
   footerContainer: {
     width: "100%",
-    position: "sticky",
-    bottom: 0,
-    zIndex: 100,
+    zIndex: 1,
     backgroundColor: "black",
     justifyContent: "space-between",
     alignItems: "center",
-    height: "15rem",
+    height: "8rem",
   },
 };
 
 function Footer() {
   return (
-    <Box sx={StyleSheet.footerContainer}>
-      <Typography variant="h6" component="h6" gutterBottom>
+    <Box sx={STYLES.footerContainer}>
+      <Typography variant="h6" component="h6" color="white">
         Footer
       </Typography>
     </Box>
