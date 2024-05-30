@@ -1,34 +1,149 @@
-import { Box, Button, Stack, TextField } from "@mui/material";
-import React from "react";
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import zIndex from "@mui/material/styles/zIndex";
+import React, { useState } from "react";
 
 const STYLES = {
   loginContainer: {
-    width: "400px",
-    padding: "20px",
-    border: "1px solid black",
-    borderRadius: "10px",
-    backgroundColor: "white",
+    width: "20rem",
+    border: "0.0625rem solid black",
+    borderRadius: "1rem",
+    padding: "4rem 4rem 6rem 4rem",
+    backgroundColor: "rgba(0, 0, 0, 0.82)",
     margin: "auto",
-    height: "35rem",
-    mb: "21rem",
-    mt: "6rem",
+    mt: "96px",
     justifyContent: "center",
+  },
+  textField: {
+    zIndex: 1,
+    "& input": {
+      color: "white",
+    },
+    "& label": {
+      color: "white",
+    },
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "white",
+      },
+      "&:hover fieldset": {
+        borderColor: "white",
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "white",
+      },
+    },
+    "& .MuiFormLabel-root": {
+      color: "white",
+    },
+  },
+  loginSignupBtn: {
+    cursor: "pointer",
+    textTransform: "none",
+    fontSize: "1rem",
+    zIndex: 1,
+    height: "2.75rem",
   },
 };
 
 function LoginForm() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleLoginClick = () => {
+    console.log("Email:", email);
+    console.log("Password:", password);
+  };
+
   return (
-    <Stack sx={STYLES.loginContainer}>
-      <TextField label="Email" variant="outlined" fullWidth margin="normal" />
-      <TextField
-        label="Password"
-        variant="outlined"
-        fullWidth
-        margin="normal"
-      />
-      <Button variant="contained" color="primary" fullWidth>
-        Login
-      </Button>
+    <Stack sx={STYLES.loginContainer} gap={2}>
+      <Typography variant="h4" component="h4" color="white" fontWeight={600}>
+        Sign In
+      </Typography>
+      <Stack>
+        <TextField
+          label="Email"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          sx={STYLES.textField}
+          value={email}
+          onChange={handleEmailChange}
+        />
+
+        <TextField
+          label="Password"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          type="password"
+          sx={STYLES.textField}
+          value={password}
+          onChange={handlePasswordChange}
+        />
+      </Stack>
+      <Stack
+        // mb={2}
+        direction="column"
+        gap={2}
+        sx={{
+          alignItems: "center",
+        }}
+      >
+        <Button
+          variant="contained"
+          fullWidth
+          onClick={handleLoginClick}
+          sx={{
+            ...STYLES.loginSignupBtn,
+            "&:hover": {
+              backgroundColor: "crimson",
+            },
+            backgroundColor: "red",
+            fontWeight: "bold",
+          }}
+        >
+          Login
+        </Button>
+        <Typography variant="body2" color="white" fontWeight={600}>
+          OR
+        </Typography>
+        <Button
+          variant="contained"
+          fullWidth
+          sx={{
+            ...STYLES.loginSignupBtn,
+            "&:hover": {
+              backgroundColor: "rgba(211, 211, 211, 0.18)",
+            },
+            backgroundColor: "rgba(211, 211, 211, 0.15)",
+          }}
+        >
+          <Typography variant="body1" color="white">
+            New to Netflix?<strong> Sign up now.</strong>
+          </Typography>
+        </Button>
+
+        <Typography
+          variant="body2"
+          component="p"
+          color="white"
+          sx={{ textDecoration: "underline" }}
+        >
+          Forgot password?
+        </Typography>
+        <Typography variant="body2" component="p" color="gray">
+          This page is protected by Google reCAPTCHA to ensure you are not a
+          bot.<strong> Learn more.</strong>
+        </Typography>
+      </Stack>
     </Stack>
   );
 }
