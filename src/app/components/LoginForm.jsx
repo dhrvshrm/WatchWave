@@ -1,4 +1,5 @@
 import { Button, Stack, TextField, Tooltip, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const STYLES = {
@@ -78,6 +79,7 @@ function LoginForm() {
   const [formData, setFormData] = useState(formDataInitialState);
   const [isSignUp, setIsSignUp] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
+  const router = useRouter();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -94,6 +96,7 @@ function LoginForm() {
 
   const handleLoginClick = () => {
     console.log("Form Data:", formData);
+    router.push("/browse");
   };
 
   useEffect(() => {
