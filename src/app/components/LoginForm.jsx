@@ -1,5 +1,5 @@
-import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
+import { Button, Stack, TextField, Tooltip, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 
 const STYLES = {
   loginContainer: {
@@ -36,11 +36,11 @@ const STYLES = {
     },
   },
   loginSignupBtn: {
-    cursor: "pointer",
     textTransform: "none",
     fontSize: "1rem",
     zIndex: 1,
     height: "2.75rem",
+    color: "white",
   },
 };
 
@@ -50,6 +50,7 @@ const formFields = [
     label: "Email",
     type: "text",
     sx: STYLES.textField,
+    required: true,
   },
   {
     name: "name",
@@ -63,16 +64,20 @@ const formFields = [
     label: "Password",
     type: "password",
     sx: STYLES.textField,
+    required: true,
   },
 ];
 
+const formDataInitialState = {
+  email: "",
+  password: "",
+  name: "",
+};
+
 function LoginForm() {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    name: "",
-  });
+  const [formData, setFormData] = useState(formDataInitialState);
   const [isSignUp, setIsSignUp] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -84,11 +89,23 @@ function LoginForm() {
 
   const isSignUpForm = () => {
     setIsSignUp(!isSignUp);
+    setFormData(formDataInitialState);
   };
 
   const handleLoginClick = () => {
     console.log("Form Data:", formData);
   };
+
+  useEffect(() => {
+    setIsFormValid(() => {
+      for (const field of formFields) {
+        if (field.required && !formData[field.name]) {
+          return false;
+        }
+      }
+      return true;
+    });
+  }, [formData]);
 
   return (
     <Stack sx={STYLES.loginContainer} gap={2}>
@@ -111,6 +128,7 @@ function LoginForm() {
                 fullWidth
                 variant="outlined"
                 margin="normal"
+                required={field.required}
               />
             )
         )}
@@ -122,21 +140,28 @@ function LoginForm() {
           alignItems: "center",
         }}
       >
-        <Button
-          variant="contained"
-          fullWidth
-          onClick={handleLoginClick}
-          sx={{
-            ...STYLES.loginSignupBtn,
-            "&:hover": {
-              backgroundColor: "crimson",
-            },
-            backgroundColor: "red",
-            fontWeight: "bold",
-          }}
+        <Tooltip
+          title={isFormValid ? "" : "Please fill all the required fields."}
+          placement="right"
+          arrow
+          open={true}
         >
-          {isSignUp ? "Sign Up" : "Login"}
-        </Button>
+          <Button
+            variant="contained"
+            fullWidth
+            onClick={handleLoginClick}
+            sx={{
+              ...STYLES.loginSignupBtn,
+              "&:hover": {
+                backgroundColor: "crimson",
+              },
+              backgroundColor: isFormValid ? "red" : " rgba(255, 0, 0, 0.2)",
+              fontWeight: "bold",
+            }}
+          >
+            {isSignUp ? "Sign Up" : "Login"}
+          </Button>
+        </Tooltip>
         <Typography variant="body2" color="white" fontWeight={600}>
           OR
         </Typography>
@@ -152,9 +177,9 @@ function LoginForm() {
           }}
           onClick={isSignUpForm}
         >
-          {isSignUp
-            ? "Already a user? Log in now."
-            : "New to Netflix? Sign up now."}
+          <Typography variant="body2" color="white" fontWeight={600}>
+            {isSignUp ? "Already have an account? " : "Create an account? "}
+          </Typography>
         </Button>
         {!isSignUp && (
           <Typography
