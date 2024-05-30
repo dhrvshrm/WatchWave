@@ -1,5 +1,4 @@
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import zIndex from "@mui/material/styles/zIndex";
 import React, { useState } from "react";
 
 const STYLES = {
@@ -45,52 +44,78 @@ const STYLES = {
   },
 };
 
-function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const formFields = [
+  {
+    name: "email",
+    label: "Email",
+    type: "text",
+    sx: STYLES.textField,
+  },
+  {
+    name: "name",
+    label: "Name",
+    type: "text",
+    sx: STYLES.textField,
+    condition: true,
+  },
+  {
+    name: "password",
+    label: "Password",
+    type: "password",
+    sx: STYLES.textField,
+  },
+];
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+function LoginForm() {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    name: "",
+  });
+  const [isSignUp, setIsSignUp] = useState(false);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+  const isSignUpForm = () => {
+    setIsSignUp(!isSignUp);
   };
 
   const handleLoginClick = () => {
-    console.log("Email:", email);
-    console.log("Password:", password);
+    console.log("Form Data:", formData);
   };
 
   return (
     <Stack sx={STYLES.loginContainer} gap={2}>
       <Typography variant="h4" component="h4" color="white" fontWeight={600}>
-        Sign In
+        {isSignUp ? "Sign Up" : "Sign In"}
       </Typography>
       <Stack>
-        <TextField
-          label="Email"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          sx={STYLES.textField}
-          value={email}
-          onChange={handleEmailChange}
-        />
-
-        <TextField
-          label="Password"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          type="password"
-          sx={STYLES.textField}
-          value={password}
-          onChange={handlePasswordChange}
-        />
+        {formFields.map(
+          (field) =>
+            (isSignUp || !field.condition) && (
+              <TextField
+                key={field.name}
+                autoComplete="off"
+                label={field.label}
+                type={field.type}
+                sx={field.sx}
+                value={formData[field.name]}
+                onChange={handleInputChange}
+                name={field.name}
+                fullWidth
+                variant="outlined"
+                margin="normal"
+              />
+            )
+        )}
       </Stack>
       <Stack
-        // mb={2}
         direction="column"
         gap={2}
         sx={{
@@ -110,7 +135,7 @@ function LoginForm() {
             fontWeight: "bold",
           }}
         >
-          Login
+          {isSignUp ? "Sign Up" : "Login"}
         </Button>
         <Typography variant="body2" color="white" fontWeight={600}>
           OR
@@ -121,27 +146,29 @@ function LoginForm() {
           sx={{
             ...STYLES.loginSignupBtn,
             "&:hover": {
-              backgroundColor: "rgba(211, 211, 211, 0.18)",
+              backgroundColor: "rgba(211, 211, 211, 0.21)",
             },
-            backgroundColor: "rgba(211, 211, 211, 0.15)",
+            backgroundColor: "rgba(211, 211, 211, 0.18)",
           }}
+          onClick={isSignUpForm}
         >
-          <Typography variant="body1" color="white">
-            New to Netflix?<strong> Sign up now.</strong>
-          </Typography>
+          {isSignUp
+            ? "Already a user? Log in now."
+            : "New to Netflix? Sign up now."}
         </Button>
-
-        <Typography
-          variant="body2"
-          component="p"
-          color="white"
-          sx={{ textDecoration: "underline" }}
-        >
-          Forgot password?
-        </Typography>
+        {!isSignUp && (
+          <Typography
+            variant="body2"
+            component="p"
+            color="white"
+            sx={{ textDecoration: "underline" }}
+          >
+            Forgot password?
+          </Typography>
+        )}
         <Typography variant="body2" component="p" color="gray">
           This page is protected by Google reCAPTCHA to ensure you are not a
-          bot.<strong> Learn more.</strong>
+          bot. <strong>Learn more.</strong>
         </Typography>
       </Stack>
     </Stack>
