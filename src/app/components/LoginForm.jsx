@@ -1,6 +1,6 @@
-import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import zIndex from "@mui/material/styles/zIndex";
-import React, { useState } from "react";
+import { Button, Stack, TextField, Tooltip, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 const STYLES = {
   loginContainer: {
@@ -37,81 +37,134 @@ const STYLES = {
     },
   },
   loginSignupBtn: {
-    cursor: "pointer",
     textTransform: "none",
     fontSize: "1rem",
     zIndex: 1,
     height: "2.75rem",
+    color: "white",
   },
 };
 
-function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const formFields = [
+  {
+    name: "email",
+    label: "Email",
+    type: "text",
+    sx: STYLES.textField,
+    required: true,
+  },
+  {
+    name: "name",
+    label: "Name",
+    type: "text",
+    sx: STYLES.textField,
+    condition: true,
+  },
+  {
+    name: "password",
+    label: "Password",
+    type: "password",
+    sx: STYLES.textField,
+    required: true,
+  },
+];
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+const formDataInitialState = {
+  email: "",
+  password: "",
+  name: "",
+};
+
+function LoginForm() {
+  const [formData, setFormData] = useState(formDataInitialState);
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
+  const router = useRouter();
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+  const isSignUpForm = () => {
+    setIsSignUp(!isSignUp);
+    setFormData(formDataInitialState);
   };
 
   const handleLoginClick = () => {
-    console.log("Email:", email);
-    console.log("Password:", password);
+    console.log("Form Data:", formData);
+    router.push("/browse");
   };
+
+  useEffect(() => {
+    setIsFormValid(() => {
+      for (const field of formFields) {
+        if (field.required && !formData[field.name]) {
+          return false;
+        }
+      }
+      return true;
+    });
+  }, [formData]);
 
   return (
     <Stack sx={STYLES.loginContainer} gap={2}>
       <Typography variant="h4" component="h4" color="white" fontWeight={600}>
-        Sign In
+        {isSignUp ? "Sign Up" : "Sign In"}
       </Typography>
       <Stack>
-        <TextField
-          label="Email"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          sx={STYLES.textField}
-          value={email}
-          onChange={handleEmailChange}
-        />
-
-        <TextField
-          label="Password"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          type="password"
-          sx={STYLES.textField}
-          value={password}
-          onChange={handlePasswordChange}
-        />
+        {formFields.map(
+          (field) =>
+            (isSignUp || !field.condition) && (
+              <TextField
+                key={field.name}
+                autoComplete="off"
+                label={field.label}
+                type={field.type}
+                sx={field.sx}
+                value={formData[field.name]}
+                onChange={handleInputChange}
+                name={field.name}
+                fullWidth
+                variant="outlined"
+                margin="normal"
+                required={field.required}
+              />
+            )
+        )}
       </Stack>
       <Stack
-        // mb={2}
         direction="column"
         gap={2}
         sx={{
           alignItems: "center",
         }}
       >
-        <Button
-          variant="contained"
-          fullWidth
-          onClick={handleLoginClick}
-          sx={{
-            ...STYLES.loginSignupBtn,
-            "&:hover": {
-              backgroundColor: "crimson",
-            },
-            backgroundColor: "red",
-            fontWeight: "bold",
-          }}
+        <Tooltip
+          title={isFormValid ? "" : "Please fill all the required fields."}
+          placement="right"
+          arrow
+          open={true}
         >
-          Login
-        </Button>
+          <Button
+            variant="contained"
+            fullWidth
+            onClick={handleLoginClick}
+            sx={{
+              ...STYLES.loginSignupBtn,
+              "&:hover": {
+                backgroundColor: "crimson",
+              },
+              backgroundColor: isFormValid ? "red" : " rgba(255, 0, 0, 0.2)",
+              fontWeight: "bold",
+            }}
+          >
+            {isSignUp ? "Sign Up" : "Login"}
+          </Button>
+        </Tooltip>
         <Typography variant="body2" color="white" fontWeight={600}>
           OR
         </Typography>
@@ -121,27 +174,29 @@ function LoginForm() {
           sx={{
             ...STYLES.loginSignupBtn,
             "&:hover": {
-              backgroundColor: "rgba(211, 211, 211, 0.18)",
+              backgroundColor: "rgba(211, 211, 211, 0.21)",
             },
-            backgroundColor: "rgba(211, 211, 211, 0.15)",
+            backgroundColor: "rgba(211, 211, 211, 0.18)",
           }}
+          onClick={isSignUpForm}
         >
-          <Typography variant="body1" color="white">
-            New to Netflix?<strong> Sign up now.</strong>
+          <Typography variant="body2" color="white" fontWeight={600}>
+            {isSignUp ? "Already have an account? " : "Create an account? "}
           </Typography>
         </Button>
-
-        <Typography
-          variant="body2"
-          component="p"
-          color="white"
-          sx={{ textDecoration: "underline" }}
-        >
-          Forgot password?
-        </Typography>
+        {!isSignUp && (
+          <Typography
+            variant="body2"
+            component="p"
+            color="white"
+            sx={{ textDecoration: "underline" }}
+          >
+            Forgot password?
+          </Typography>
+        )}
         <Typography variant="body2" component="p" color="gray">
           This page is protected by Google reCAPTCHA to ensure you are not a
-          bot.<strong> Learn more.</strong>
+          bot. <strong>Learn more.</strong>
         </Typography>
       </Stack>
     </Stack>
