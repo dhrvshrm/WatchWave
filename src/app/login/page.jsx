@@ -1,8 +1,9 @@
 "use client";
+import React from "react";
 import { Box, Stack } from "@mui/material";
+import Footer from "../components/Footer";
 import Header from "../components/Header";
 import LoginForm from "../components/LoginForm";
-import Footer from "../components/Footer";
 
 const STYLES = {
   vignette: {
@@ -35,7 +36,7 @@ const STYLES = {
   },
 };
 
-function Home() {
+export default function Page() {
   return (
     <Stack sx={STYLES.page} direction="column">
       <Box sx={STYLES.vignette} />
@@ -45,5 +46,3 @@ function Home() {
     </Stack>
   );
 }
-
-export default Home;
