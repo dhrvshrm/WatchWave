@@ -1,6 +1,9 @@
-import { Button, Stack, TextField, Tooltip, Typography } from "@mui/material";
+import { Button, Stack, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { validateEmail, validateName, validatePassword } from "../utils";
 
 const STYLES = {
   loginContainer: {
@@ -75,10 +78,9 @@ const formDataInitialState = {
   name: "",
 };
 
-function LoginForm() {
+export const LoginForm = () => {
   const [formData, setFormData] = useState(formDataInitialState);
   const [isSignUp, setIsSignUp] = useState(false);
-  const [isFormValid, setIsFormValid] = useState(false);
   const router = useRouter();
 
   const handleInputChange = (e) => {
@@ -95,20 +97,41 @@ function LoginForm() {
   };
 
   const handleLoginClick = () => {
+    if (!isFormValid()) {
+      toast.error("Please fill all the required fields.");
+      return;
+    }
+
+    if (isSignUp) {
+      if (!validateEmail(formData.email)) {
+        toast.error("Please enter a valid email address.");
+        return;
+      }
+
+      if (!validateName(formData.name)) {
+        toast.error("Please enter a valid name.");
+        return;
+      }
+
+      const passwordError = validatePassword(formData.password);
+      if (passwordError) {
+        toast.error(passwordError);
+        return;
+      }
+    }
+
     console.log("Form Data:", formData);
     router.push("/browse");
   };
 
-  useEffect(() => {
-    setIsFormValid(() => {
-      for (const field of formFields) {
-        if (field.required && !formData[field.name]) {
-          return false;
-        }
+  const isFormValid = () => {
+    for (const field of formFields) {
+      if (field.required && !formData[field.name]) {
+        return false;
       }
-      return true;
-    });
-  }, [formData]);
+    }
+    return true;
+  };
 
   return (
     <Stack sx={STYLES.loginContainer} gap={2}>
@@ -143,28 +166,21 @@ function LoginForm() {
           alignItems: "center",
         }}
       >
-        <Tooltip
-          title={isFormValid ? "" : "Please fill all the required fields."}
-          placement="right"
-          arrow
-          open={true}
+        <Button
+          variant="contained"
+          fullWidth
+          onClick={handleLoginClick}
+          sx={{
+            ...STYLES.loginSignupBtn,
+            "&:hover": {
+              backgroundColor: "crimson",
+            },
+            backgroundColor: "red",
+            fontWeight: "bold",
+          }}
         >
-          <Button
-            variant="contained"
-            fullWidth
-            onClick={handleLoginClick}
-            sx={{
-              ...STYLES.loginSignupBtn,
-              "&:hover": {
-                backgroundColor: "crimson",
-              },
-              backgroundColor: isFormValid ? "red" : " rgba(255, 0, 0, 0.2)",
-              fontWeight: "bold",
-            }}
-          >
-            {isSignUp ? "Sign Up" : "Login"}
-          </Button>
-        </Tooltip>
+          {isSignUp ? "Sign Up" : "Login"}
+        </Button>
         <Typography variant="body2" color="white" fontWeight={600}>
           OR
         </Typography>
@@ -199,8 +215,7 @@ function LoginForm() {
           bot. <strong>Learn more.</strong>
         </Typography>
       </Stack>
+      <ToastContainer />
     </Stack>
   );
-}
-
-export default LoginForm;
+};

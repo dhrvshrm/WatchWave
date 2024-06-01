@@ -1,8 +1,7 @@
 "use client";
+import React from "react";
 import { Box, Stack } from "@mui/material";
-import Header from "../components/Header";
-import LoginForm from "../components/LoginForm";
-import Footer from "../components/Footer";
+import dynamic from "next/dynamic";
 
 const STYLES = {
   vignette: {
@@ -35,15 +34,29 @@ const STYLES = {
   },
 };
 
-function Home() {
-  return (
-    <Stack sx={STYLES.page} direction="column">
-      <Box sx={STYLES.vignette} />
-      <Header />
-      <LoginForm />
-      <Footer />
-    </Stack>
+export default function Page() {
+  const Header = dynamic(() =>
+    import("../components/Header").then((mod) => mod.Header)
   );
-}
 
-export default Home;
+  const Footer = dynamic(() =>
+    import("../components/Footer").then((mod) => mod.Footer)
+  );
+
+  const LoginForm = dynamic(() =>
+    import("../components/LoginForm").then((mod) => mod.LoginForm)
+  );
+
+  if (typeof window !== "undefined") {
+    return (
+      <Stack sx={STYLES.page} direction="column">
+        <Box sx={STYLES.vignette} />
+        <Header />
+        <LoginForm />
+        <Footer />
+      </Stack>
+    );
+  } else {
+    return null;
+  }
+}

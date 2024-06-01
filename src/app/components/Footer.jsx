@@ -12,7 +12,7 @@ const STYLES = {
   },
 };
 
-function Footer() {
+export const Footer = () => {
   return (
     <Box sx={STYLES.footerContainer}>
       <Typography variant="h6" component="h6" color="white">
@@ -20,6 +20,4 @@ function Footer() {
       </Typography>
     </Box>
   );
-}
-
-export default Footer;
+};

@@ -18,12 +18,10 @@ const STYLES = {
   },
 };
 
-const Header = () => {
+export const Header = () => {
   return (
     <Stack direction="row" sx={STYLES.header}>
       <Image alt="logo" src={logo} width={200} height={105} />
     </Stack>
   );
 };
-
-export default Header;
