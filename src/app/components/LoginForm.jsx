@@ -78,7 +78,7 @@ const formDataInitialState = {
   name: "",
 };
 
-function LoginForm() {
+export const LoginForm = () => {
   const [formData, setFormData] = useState(formDataInitialState);
   const [isSignUp, setIsSignUp] = useState(false);
   const router = useRouter();
@@ -218,6 +218,4 @@ function LoginForm() {
       <ToastContainer />
     </Stack>
   );
-}
-
-export default LoginForm;
+};
