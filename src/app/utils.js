@@ -1,3 +1,6 @@
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+
 // Validations for SIgnUp form
 
 export const validateEmail = (email) => {
@@ -25,3 +28,19 @@ export const validateName = (name) => {
   const re = /^[A-Za-z -]+$/;
   return re.test(name);
 };
+
+// Firebase configuration
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyBazoP7ahYdxm2T-0Gxhss_syDE5ovnA1E",
+  authDomain: "watchwave-4f7ab.firebaseapp.com",
+  projectId: "watchwave-4f7ab",
+  storageBucket: "watchwave-4f7ab.appspot.com",
+  messagingSenderId: "164840175759",
+  appId: "1:164840175759:web:4c2e4895c4d333922858fa",
+  measurementId: "G-0MPGFNVFX3",
+};
+
+// Initialize Firebase
+export const app = initializeApp(firebaseConfig);
+export const analytics = getAnalytics(app);
