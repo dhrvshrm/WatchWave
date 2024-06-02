@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { validateEmail, validateName, validatePassword } from "../utils";
+import { useUserStore } from "../store/userStore";
 
 const STYLES = {
   loginContainer: {
@@ -73,8 +74,8 @@ const formFields = [
 ];
 
 const formDataInitialState = {
-  email: "",
-  password: "",
+  email: "dhruv@gmail.com",
+  password: "Dhruv@12345",
   name: "",
 };
 
@@ -82,6 +83,7 @@ export const LoginForm = () => {
   const [formData, setFormData] = useState(formDataInitialState);
   const [isSignUp, setIsSignUp] = useState(false);
   const router = useRouter();
+  const { setUser } = useUserStore();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -119,6 +121,7 @@ export const LoginForm = () => {
         return;
       }
     }
+    setUser(formData);
 
     console.log("Form Data:", formData);
     router.push("/browse");

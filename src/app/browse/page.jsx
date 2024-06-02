@@ -1,8 +1,8 @@
+"use client";
+
 import React from "react";
 import Browse from "../components/Browse";
 
-function BrowsePage() {
+export default function Page() {
   return <Browse />;
 }
-
-export default BrowsePage;
