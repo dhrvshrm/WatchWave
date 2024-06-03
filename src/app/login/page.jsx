@@ -51,7 +51,7 @@ export default function Page() {
     return (
       <Stack sx={STYLES.page} direction="column">
         <Box sx={STYLES.vignette} />
-        <Header />
+        <Header logOutEnable={false} />
         <LoginForm />
         <Footer />
       </Stack>

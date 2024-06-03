@@ -9,6 +9,7 @@ const STYLES = {
     justifyContent: "space-between",
     alignItems: "center",
     height: "8rem",
+    mt: "auto",
   },
 };
 
