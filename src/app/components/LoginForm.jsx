@@ -3,8 +3,12 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { validateEmail, validateName, validatePassword } from "../utils";
+import { auth, validateEmail, validateName, validatePassword } from "../utils";
 import { useUserStore } from "../store/userStore";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 const STYLES = {
   loginContainer: {
@@ -120,11 +124,34 @@ export const LoginForm = () => {
         toast.error(passwordError);
         return;
       }
+
+      createUserWithEmailAndPassword(auth, formData.email, formData.password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log("Error:", errorCode, errorMessage);
+        });
+      setUser(formData);
+      setIsSignUp(false);
     }
-    setUser(formData);
+
+    if (!isSignUp) {
+      signInWithEmailAndPassword(auth, formData.email, formData.password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log("Error:", errorCode, errorMessage);
+        });
+      router.push("/browse");
+    }
 
     console.log("Form Data:", formData);
-    router.push("/browse");
   };
 
   const isFormValid = () => {
