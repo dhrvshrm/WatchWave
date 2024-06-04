@@ -1,6 +1,6 @@
 const nextConfig = {
   images: {
-    domains: ["cdn.cookielaw.org"],
+    domains: ["cdn.cookielaw.org", "image.tmdb.org"],
   },
 };
 

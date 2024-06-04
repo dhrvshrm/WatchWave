@@ -1,12 +1,16 @@
-import React, { useEffect } from "react";
-import { useUserStore } from "../store/userStore";
 import { Stack, Typography } from "@mui/material";
+import Image from "next/image";
+import { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useMovieData } from "../hooks/useBrowseMovie";
+import { useUserStore } from "../store/userStore";
+import { TMDB_IMAGE_URL } from "../utils";
 
 export const Browse = () => {
   const user = useUserStore((state) => state?.user);
-  console.log({ user });
+  const movieData = useMovieData();
+  console.log({ movieData });
 
   useEffect(() => {
     if (user) {

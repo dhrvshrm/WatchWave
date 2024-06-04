@@ -133,6 +133,7 @@ export const LoginForm = () => {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log("Error:", errorCode, errorMessage);
+          toast.error(errorMessage);
         });
       setUser(formData);
       setIsSignUp(false);
@@ -142,13 +143,14 @@ export const LoginForm = () => {
       signInWithEmailAndPassword(auth, formData.email, formData.password)
         .then((userCredential) => {
           const user = userCredential.user;
+          router.push("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log("Error:", errorCode, errorMessage);
+          toast.error(errorMessage);
         });
-      router.push("/browse");
     }
 
     console.log("Form Data:", formData);
