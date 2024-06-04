@@ -8,7 +8,7 @@ const STYLES = {
     backgroundColor: "black",
     justifyContent: "space-between",
     alignItems: "center",
-    height: "8rem",
+    height: "15rem",
     mt: "auto",
   },
 };

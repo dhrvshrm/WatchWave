@@ -16,7 +16,6 @@ const STYLES = {
     justifyContent: "space-between",
     alignItems: "center",
     p: "1.35rem",
-    border: "0.0625rem solid black",
   },
   logOutBtnStyle: {
     color: "white",

@@ -3,7 +3,8 @@
 import React from "react";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import { Browse } from "../components/Browse";
+import { MainContainer } from "../components/MainContainer";
+import { SecondaryContainer } from "../components/SecondaryContainer";
 import { Stack } from "@mui/material";
 
 export default function Page() {
@@ -21,7 +22,8 @@ export default function Page() {
       }}
     >
       <Header logOutEnable={true} />
-      <Browse />
+      <MainContainer />
+      <SecondaryContainer />
       <Footer />
     </Stack>
   );
