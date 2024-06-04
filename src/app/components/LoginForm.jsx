@@ -3,7 +3,12 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { validateEmail, validateName, validatePassword } from "../utils";
+import { auth, validateEmail, validateName, validatePassword } from "../utils";
+import { useUserStore } from "../store/userStore";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 const STYLES = {
   loginContainer: {
@@ -73,8 +78,8 @@ const formFields = [
 ];
 
 const formDataInitialState = {
-  email: "",
-  password: "",
+  email: "dhruv@gmail.com",
+  password: "Dhruv@12345",
   name: "",
 };
 
@@ -82,6 +87,7 @@ export const LoginForm = () => {
   const [formData, setFormData] = useState(formDataInitialState);
   const [isSignUp, setIsSignUp] = useState(false);
   const router = useRouter();
+  const { setUser } = useUserStore();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -118,10 +124,36 @@ export const LoginForm = () => {
         toast.error(passwordError);
         return;
       }
+
+      createUserWithEmailAndPassword(auth, formData.email, formData.password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log("Error:", errorCode, errorMessage);
+          toast.error(errorMessage);
+        });
+      setUser(formData);
+      setIsSignUp(false);
+    }
+
+    if (!isSignUp) {
+      signInWithEmailAndPassword(auth, formData.email, formData.password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          router.push("/browse");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log("Error:", errorCode, errorMessage);
+          toast.error(errorMessage);
+        });
     }
 
     console.log("Form Data:", formData);
-    router.push("/browse");
   };
 
   const isFormValid = () => {

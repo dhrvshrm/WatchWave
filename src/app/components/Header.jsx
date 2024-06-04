@@ -1,27 +1,62 @@
-import { Stack } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import Image from "next/image";
 import React from "react";
+import { useRouter } from "next/navigation";
+import { getAuth, signOut } from "firebase/auth";
+import { auth } from "../utils";
 
 const logo = `https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png`;
 
 const STYLES = {
   header: {
-    width: "100%",
     position: "sticky",
     top: 0,
     zIndex: 100,
     backgroundColor: "transparent",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingTop: "1.5rem",
-    paddingLeft: "1.5rem",
+    p: "1.35rem",
+  },
+  logOutBtnStyle: {
+    color: "white",
+    backgroundColor: "red",
+    "&:hover": {
+      backgroundColor: "crimson",
+    },
+    borderRadius: "0.5rem",
+    fontSize: "1rem",
+    fontWeight: "bold",
+    height: "2.5rem",
+    textTransform: "none",
+    zIndex: 1,
   },
 };
 
-export const Header = () => {
+export const Header = ({ logOutEnable = false }) => {
+  const router = useRouter();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      router.push("/login");
+      console.log("Sign-out successful.");
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
+
   return (
     <Stack direction="row" sx={STYLES.header}>
       <Image alt="logo" src={logo} width={200} height={105} />
+      {logOutEnable && (
+        <Button
+          color="secondary"
+          onClick={handleSignOut}
+          sx={STYLES.logOutBtnStyle}
+        >
+          Log Out
+        </Button>
+      )}
     </Stack>
   );
 };
