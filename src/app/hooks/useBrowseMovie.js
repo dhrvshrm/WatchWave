@@ -8,7 +8,6 @@ export const useMovieData = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log("Fetching data...");
       try {
         const response = await axios.get(TBMD_URL, {
           headers: {
@@ -16,7 +15,7 @@ export const useMovieData = () => {
             Authorization: `Bearer ${TMDB_ACCESS_TOKEN}`,
           },
         });
-        setMovieData(response.data.results[0]);
+        setMovieData(response.data.results);
       } catch (error) {
         toast.error("Failed to fetch data");
       }

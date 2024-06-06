@@ -39,9 +39,8 @@ export const Header = ({ logOutEnable = false }) => {
     try {
       await signOut(auth);
       router.push("/login");
-      console.log("Sign-out successful.");
     } catch (error) {
-      console.error("Error signing out:", error);
+      toast.error("Error signing out");
     }
   };
 
