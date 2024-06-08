@@ -14,11 +14,13 @@ export default function Page() {
         position: "relative",
         backgroundColor: "lightblack",
         backgroundSize: "cover",
-        height: "150vh",
+        height: "200vh",
         width: "99vw",
         overflow: "hidden",
         zIndex: 0,
-        m: -1,
+        my: -1,
+        ml: -2,
+        backgroundColor: "black",
       }}
     >
       <Header logOutEnable={true} />
