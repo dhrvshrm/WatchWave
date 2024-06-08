@@ -20,14 +20,14 @@ function getRandomVideoCompData(movieData) {
 
 export const MainContainer = () => {
   const movieData = useMovieData();
+  console.log({ movieData });
   const videoCompData = getRandomVideoCompData(movieData);
 
   return (
     <Stack
       sx={{
-        backgroundColor: "lightgray",
-        height: "50rem",
-        mt: "-10rem",
+        height: "80%",
+        backgroundColor: "black",
       }}
     >
       <VideoComponent videoCompData={videoCompData} />
