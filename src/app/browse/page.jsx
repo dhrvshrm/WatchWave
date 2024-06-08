@@ -11,9 +11,6 @@ export default function Page() {
   return (
     <Stack
       sx={{
-        position: "relative",
-        backgroundColor: "lightblack",
-        backgroundSize: "cover",
         height: "200vh",
         width: "99vw",
         overflow: "hidden",

@@ -1,9 +1,7 @@
 import { Stack } from "@mui/material";
-import { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useMovieData } from "../hooks/useBrowseMovie";
-import { useUserStore } from "../store/userStore";
 import { VideoComponent } from "./VideoComponent";
 
 function getRandomVideoCompData(movieData) {
@@ -20,7 +18,6 @@ function getRandomVideoCompData(movieData) {
 
 export const MainContainer = () => {
   const movieData = useMovieData();
-  console.log({ movieData });
   const videoCompData = getRandomVideoCompData(movieData);
 
   return (
