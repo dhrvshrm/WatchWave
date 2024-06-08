@@ -6,14 +6,12 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 export const VideoComponent = ({ videoCompData }) => {
   const id = videoCompData?.id;
   const { singleVideoData, loading } = useFetchMovieDetail(id);
-  console.log({ singleVideoData, videoCompData });
 
   return (
     <Stack
       sx={{
         alignItems: "center",
         justifyContent: "center",
-        border: "1px solid black",
       }}
     >
       {singleVideoData && (
@@ -22,7 +20,7 @@ export const VideoComponent = ({ videoCompData }) => {
         >
           <iframe
             width="100%"
-            height={1000}
+            height={880}
             src={`https://www.youtube.com/embed/${singleVideoData.key}?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&fs=0&loop=1`}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
@@ -37,7 +35,7 @@ export const VideoComponent = ({ videoCompData }) => {
               top: 0,
               left: 0,
               width: "100%",
-              height: 1000,
+              height: 890,
               background: "radial-gradient(circle, transparent, black)",
               zIndex: 0,
             }}
@@ -45,7 +43,7 @@ export const VideoComponent = ({ videoCompData }) => {
           <Box
             sx={{
               position: "absolute",
-              top: 500,
+              top: 370,
               left: 100,
               width: "35%",
               height: 1000,

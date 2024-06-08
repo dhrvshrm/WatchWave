@@ -1,15 +1,18 @@
-import { Stack, Typography } from "@mui/material";
-import React from "react";
+import { Stack } from "@mui/material";
+import { MovieList } from "../components/MovieList";
+import { useMovieData } from "../hooks/useBrowseMovie";
 
 export const SecondaryContainer = () => {
+  const movieData = useMovieData();
+  console.log({ movieData });
   return (
     <Stack
       sx={{
-        backgroundColor: "cyan",
-        height: "200vh",
+        height: "100%",
+        width: "99vw",
       }}
     >
-      <Typography variant="h3" sx={{ color: "white" }}></Typography>
+      <MovieList title="Movie List" movieData={movieData} />
     </Stack>
   );
 };
