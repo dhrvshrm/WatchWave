@@ -15,7 +15,8 @@ const STYLES = {
     backgroundColor: "transparent",
     justifyContent: "space-between",
     alignItems: "center",
-    p: "1.35rem",
+    py: "1.35rem",
+    px: "1.5rem",
   },
   logOutBtnStyle: {
     color: "white",

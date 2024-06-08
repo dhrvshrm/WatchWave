@@ -6,7 +6,7 @@ export const SecondaryContainer = () => {
     <Stack
       sx={{
         backgroundColor: "cyan",
-        height: "100vh",
+        height: "200vh",
       }}
     >
       <Typography variant="h3" sx={{ color: "white" }}></Typography>
