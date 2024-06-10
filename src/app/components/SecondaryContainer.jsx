@@ -10,9 +10,25 @@ export const SecondaryContainer = () => {
       sx={{
         height: "100%",
         width: "99vw",
+        backgroundColor: "gray",
+        mt: 8,
+        px: 4,
+        py: 3,
       }}
+      direction="column"
+      gap={2}
     >
-      <MovieList title="Movie List" movieData={movieData} />
+      {MOvieListCOnfig.map((config) => (
+        <MovieList key={config.id} title={config.title} movieData={movieData} />
+      ))}
     </Stack>
   );
 };
+
+const MOvieListCOnfig = [
+  { title: "Movie List", id: "movie" },
+  { title: "Series List", id: "series" },
+  { title: "asdd List", id: "asdd" },
+  { title: "Movsdfgie List", id: "Movsdfgie" },
+  { title: "asd List", id: "asd" },
+];

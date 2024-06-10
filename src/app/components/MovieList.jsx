@@ -1,18 +1,25 @@
 import { Stack, Typography } from "@mui/material";
 import { MovieCard } from "./MovieCard";
-import "./styles.css"; // Import your CSS file
 
 export const MovieList = ({ title, movieData }) => {
   return (
-    <Stack className="scroll-container">
+    <Stack
+      sx={{
+        width: "100%",
+        overflow: "hidden",
+        height: "40rem",
+      }}
+      direction="column"
+      gap={1}
+    >
       <Typography
         variant="h5"
         sx={{ color: "white", fontWeight: 600, ml: 6, my: 0.2 }}
       >
         {title}
       </Typography>
-      <Stack className="scroll-content">
-        {movieData?.length > 0 ? (
+      <Stack sx={{ height: "50rem" }}>
+        {movieData?.length > 0 && (
           <Stack
             direction="row"
             justifyContent="flex-start"
@@ -25,8 +32,6 @@ export const MovieList = ({ title, movieData }) => {
               </Stack>
             ))}
           </Stack>
-        ) : (
-          <Typography variant="h6">No Movies Found</Typography>
         )}
       </Stack>
     </Stack>
