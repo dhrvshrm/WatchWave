@@ -1,63 +1,21 @@
 {
   "app\\browse\\page.jsx -> ../components/Header": {
-    "id": 6385,
+    "id": "app\\browse\\page.jsx -> ../components/Header",
     "files": [
-      "static/chunks/db5416bc.67a12eb34b76d3d7.js",
-      "static/chunks/58.a92d161a890fb024.js",
-      "static/chunks/941.e59728772aad4550.js",
-      "static/chunks/648.ad6ebf8901a34cfb.js",
-      "static/chunks/385.611eac5fe7b6d9c3.js"
+      "static/chunks/_app-pages-browser_src_app_components_Header_jsx.js"
     ]
   },
   "app\\browse\\page.jsx -> ../components/MainContainer": {
-    "id": 1478,
+    "id": "app\\browse\\page.jsx -> ../components/MainContainer",
     "files": [
-      "static/css/b26a1f6328a29379.css",
-      "static/chunks/db5416bc.67a12eb34b76d3d7.js",
-      "static/chunks/58.a92d161a890fb024.js",
-      "static/chunks/941.e59728772aad4550.js",
-      "static/chunks/956.0af2e9759df260b2.js",
-      "static/chunks/472.363f7b2de936c261.js",
-      "static/chunks/478.8c389f2d42a36e3d.js"
+      "static/css/_app-pages-browser_src_app_components_MainContainer_jsx.css",
+      "static/chunks/_app-pages-browser_src_app_components_MainContainer_jsx.js"
     ]
   },
   "app\\browse\\page.jsx -> ../components/SecondaryContainer": {
-    "id": 7984,
+    "id": "app\\browse\\page.jsx -> ../components/SecondaryContainer",
     "files": [
-      "static/chunks/db5416bc.67a12eb34b76d3d7.js",
-      "static/chunks/58.a92d161a890fb024.js",
-      "static/chunks/648.ad6ebf8901a34cfb.js",
-      "static/chunks/956.0af2e9759df260b2.js",
-      "static/chunks/472.363f7b2de936c261.js",
-      "static/chunks/984.f8ba100aed795568.js"
-    ]
-  },
-  "app\\login\\page.jsx -> ../components/Footer": {
-    "id": 5199,
-    "files": [
-      "static/chunks/76.5230644855a1f845.js"
-    ]
-  },
-  "app\\login\\page.jsx -> ../components/Header": {
-    "id": 6385,
-    "files": [
-      "static/chunks/db5416bc.67a12eb34b76d3d7.js",
-      "static/chunks/58.a92d161a890fb024.js",
-      "static/chunks/941.e59728772aad4550.js",
-      "static/chunks/648.ad6ebf8901a34cfb.js",
-      "static/chunks/973.bcc89e8a453e368a.js"
-    ]
-  },
-  "app\\login\\page.jsx -> ../components/LoginForm": {
-    "id": 4344,
-    "files": [
-      "static/css/b26a1f6328a29379.css",
-      "static/chunks/db5416bc.67a12eb34b76d3d7.js",
-      "static/chunks/58.a92d161a890fb024.js",
-      "static/chunks/941.e59728772aad4550.js",
-      "static/chunks/956.0af2e9759df260b2.js",
-      "static/chunks/278.d372b57638cf74f9.js",
-      "static/chunks/344.94ec03a8d9ecd5b2.js"
+      "static/chunks/_app-pages-browser_src_app_components_SecondaryContainer_jsx.js"
     ]
   }
 }
