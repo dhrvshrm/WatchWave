@@ -10,7 +10,6 @@ export const MovieList = ({ title, movieData }) => {
         height: "40rem",
       }}
       direction="column"
-      gap={1}
     >
       <Typography
         variant="h5"

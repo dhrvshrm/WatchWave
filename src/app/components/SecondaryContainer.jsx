@@ -8,15 +8,13 @@ export const SecondaryContainer = () => {
   return (
     <Stack
       sx={{
-        height: "100%",
+        height: "120rem",
         width: "99vw",
         backgroundColor: "gray",
-        mt: 8,
+        mt: "17rem",
         px: 4,
         py: 3,
       }}
-      direction="column"
-      gap={2}
     >
       {MOvieListCOnfig.map((config) => (
         <MovieList key={config.id} title={config.title} movieData={movieData} />

@@ -25,7 +25,6 @@ export default function Page() {
   return (
     <Stack
       sx={{
-        height: "400vh",
         width: "99vw",
         overflow: "hidden",
         zIndex: 0,
