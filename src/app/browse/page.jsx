@@ -1,13 +1,22 @@
 "use client";
 
-import React from "react";
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
-import { MainContainer } from "../components/MainContainer";
-import { SecondaryContainer } from "../components/SecondaryContainer";
 import { Stack } from "@mui/material";
+import { Footer } from "../components/Footer";
 
 export default function Page() {
+  const Header = dynamic(() =>
+    import("../components/Header").then((mod) => mod.Header)
+  );
+
+  const MainContainer = dynamic(() =>
+    import("../components/MainContainer").then((mod) => mod.MainContainer)
+  );
+
+  const SecondaryContainer = dynamic(() =>
+    import("../components/SecondaryContainer").then(
+      (mod) => mod.SecondaryContainer
+    )
+  );
   return (
     <Stack
       sx={{
