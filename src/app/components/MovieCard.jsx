@@ -12,11 +12,11 @@ export const MovieCard = ({ data }) => {
         backgroundColor: "black",
         height: 310,
         cursor: "pointer",
-
         "&:hover": {
           transform: "scale(1.05)",
           transition: "all 0.3s ease",
         },
+        border: "1px solid #333",
       }}
       direction="column"
     >

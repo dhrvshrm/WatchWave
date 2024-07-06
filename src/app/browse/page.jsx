@@ -25,12 +25,10 @@ export default function Page() {
   return (
     <Stack
       sx={{
-        width: "99vw",
+        width: "100vw",
         overflow: "hidden",
-        zIndex: 0,
-        my: -1,
-        ml: -2,
         backgroundColor: "black",
+        m: -1,
       }}
     >
       <Header logOutEnable={true} />

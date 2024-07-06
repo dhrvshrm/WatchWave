@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { MovieList } from "../components/MovieList";
 import { useMovieData } from "../hooks/useBrowseMovie";
 
@@ -9,21 +9,22 @@ export const SecondaryContainer = () => {
     <Stack
       sx={{
         height: "120rem",
-        width: "99vw",
-        backgroundColor: "gray",
-        mt: "17rem",
-        px: 4,
-        py: 3,
+        mt: 30,
       }}
     >
-      {MOvieListCOnfig.map((config) => (
-        <MovieList key={config.id} title={config.title} movieData={movieData} />
+      {MovieListConfig.map((config) => (
+        <>
+          <Typography variant="h5" sx={{ color: "white" }}>
+            {config.title}
+          </Typography>
+          <MovieList key={config.id} movieData={movieData} />
+        </>
       ))}
     </Stack>
   );
 };
 
-const MOvieListCOnfig = [
+const MovieListConfig = [
   { title: "Movie List", id: "movie" },
   { title: "Series List", id: "series" },
   { title: "asdd List", id: "asdd" },
