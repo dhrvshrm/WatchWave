@@ -87,7 +87,7 @@ export const LoginForm = () => {
   const [formData, setFormData] = useState(formDataInitialState);
   const [isSignUp, setIsSignUp] = useState(false);
   const router = useRouter();
-  const { setUser } = useUserStore();
+  const { setUser, setUserLoginAccessToken } = useUserStore();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -102,58 +102,57 @@ export const LoginForm = () => {
     setFormData(formDataInitialState);
   };
 
-  const handleLoginClick = () => {
-    if (!isFormValid()) {
-      toast.error("Please fill all the required fields.");
-      return;
-    }
-
-    if (isSignUp) {
-      if (!validateEmail(formData.email)) {
-        toast.error("Please enter a valid email address.");
+  const handleLoginClick = async () => {
+    try {
+      if (!isFormValid()) {
+        toast.error("Please fill all the required fields.");
         return;
       }
 
-      if (!validateName(formData.name)) {
-        toast.error("Please enter a valid name.");
-        return;
+      if (isSignUp) {
+        if (!validateEmail(formData.email)) {
+          toast.error("Please enter a valid email address.");
+          return;
+        }
+
+        if (!validateName(formData.name)) {
+          toast.error("Please enter a valid name.");
+          return;
+        }
+
+        const passwordError = validatePassword(formData.password);
+        if (passwordError) {
+          toast.error(passwordError);
+          return;
+        }
+
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          formData.email,
+          formData.password
+        );
+        const user = userCredential.user;
+        console.log(user.accessToken);
+        setUser(formData);
+        setUserLoginAccessToken(user.accessToken);
+
+        setIsSignUp(false);
+      } else {
+        const userCredential = await signInWithEmailAndPassword(
+          auth,
+          formData.email,
+          formData.password
+        );
+        const user = userCredential.user;
+        setUser(formData);
+        setUserLoginAccessToken(user.accessToken);
+        console.log({ user });
+        router.push("/browse");
       }
-
-      const passwordError = validatePassword(formData.password);
-      if (passwordError) {
-        toast.error(passwordError);
-        return;
-      }
-
-      createUserWithEmailAndPassword(auth, formData.email, formData.password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log("Error:", errorCode, errorMessage);
-          toast.error(errorMessage);
-        });
-      setUser(formData);
-      setIsSignUp(false);
+    } catch (error) {
+      console.error("Error:", error.code, error.message);
+      toast.error(error.message);
     }
-
-    if (!isSignUp) {
-      signInWithEmailAndPassword(auth, formData.email, formData.password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          router.push("/browse");
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log("Error:", errorCode, errorMessage);
-          toast.error(errorMessage);
-        });
-    }
-
-    console.log("Form Data:", formData);
   };
 
   const isFormValid = () => {
