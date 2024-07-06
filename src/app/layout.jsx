@@ -2,23 +2,20 @@
 import { Inter } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useUserStore } from "./store/userStore";
+import { ROUTES } from "./constants";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
-  const { user } = useUserStore();
   const router = useRouter();
 
-  useEffect(() => {
-    if (user.accessToken === "") {
-      router.push("/login");
-    }
-  }, [user]);
+  const locationIsProtected =
+    !ROUTES.includes(window.location.pathname) ||
+    window.location.pathname === "/";
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      if (window.location.pathname === "/") {
+      if (locationIsProtected) {
         router.push("/login");
       }
     }

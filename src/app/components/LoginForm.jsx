@@ -1,14 +1,14 @@
 import { Button, Stack, TextField, Typography } from "@mui/material";
-import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { auth, validateEmail, validateName, validatePassword } from "../utils";
-import { useUserStore } from "../store/userStore";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useUserStore } from "../store/userStore";
+import { auth, validateEmail, validateName, validatePassword } from "../utils";
 
 const STYLES = {
   loginContainer: {
