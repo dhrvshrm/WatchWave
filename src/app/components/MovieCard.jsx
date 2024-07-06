@@ -17,6 +17,7 @@ export const MovieCard = ({ data }) => {
           transition: "all 0.3s ease",
         },
         border: "1px solid #333",
+        mt: 2,
       }}
       direction="column"
     >

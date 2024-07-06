@@ -10,11 +10,12 @@ export const SecondaryContainer = () => {
       sx={{
         height: "120rem",
         mt: 30,
+        overflow: "auto",
       }}
     >
       {MovieListConfig.map((config) => (
         <>
-          <Typography variant="h5" sx={{ color: "white" }}>
+          <Typography variant="h5" sx={{ color: "white", m: 1, ml: 5 }}>
             {config.title}
           </Typography>
           <MovieList key={config.id} movieData={movieData} />

@@ -1,30 +1,45 @@
-import { Stack, Typography } from "@mui/material";
+import { Stack } from "@mui/material";
 import { MovieCard } from "./MovieCard";
+import { useEffect, useRef } from "react";
 
 export const MovieList = ({ movieData }) => {
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener("wheel", (e) => {
+        container.scrollLeft += e.deltaY;
+      });
+    }
+  }, []);
+
   return (
     <Stack
+      ref={containerRef}
       sx={{
         width: "100%",
-        overflow: "auto",
-        pt: 1,
+        height: "50rem",
+        overflow: "hidden",
+        position: "relative",
       }}
     >
-      <Stack sx={{ height: "50rem" }}>
-        {movieData?.length > 0 && (
-          <Stack
-            direction="row"
-            justifyContent="flex-start"
-            alignItems="center"
-            gap={1}
-          >
-            {movieData.map((data) => (
-              <Stack key={data.id}>
-                <MovieCard data={data} />
-              </Stack>
-            ))}
-          </Stack>
-        )}
+      <Stack
+        sx={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "row",
+          gap: 1,
+          px: 2,
+          position: "absolute",
+        }}
+      >
+        {movieData?.length > 0 &&
+          movieData.map((data) => (
+            <Stack key={data.id} sx={{ flex: "0 0 auto" }}>
+              <MovieCard data={data} />
+            </Stack>
+          ))}
       </Stack>
     </Stack>
   );
