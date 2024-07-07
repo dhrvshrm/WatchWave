@@ -2,6 +2,23 @@ import { Stack } from "@mui/material";
 import { MovieCard } from "./MovieCard";
 import { useEffect, useRef } from "react";
 
+const STYLES = {
+  container: {
+    width: "100%",
+    height: "50rem",
+    overflow: "hidden",
+    position: "relative",
+  },
+  movieList: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    gap: 1,
+    px: 2,
+    position: "absolute",
+  },
+};
+
 export const MovieList = ({ movieData }) => {
   const containerRef = useRef(null);
 
@@ -15,25 +32,8 @@ export const MovieList = ({ movieData }) => {
   }, []);
 
   return (
-    <Stack
-      ref={containerRef}
-      sx={{
-        width: "100%",
-        height: "50rem",
-        overflow: "hidden",
-        position: "relative",
-      }}
-    >
-      <Stack
-        sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "row",
-          gap: 1,
-          px: 2,
-          position: "absolute",
-        }}
-      >
+    <Stack ref={containerRef} sx={STYLES.container}>
+      <Stack sx={STYLES.movieList}>
         {movieData?.length > 0 &&
           movieData.map((data) => (
             <Stack key={data.id} sx={{ flex: "0 0 auto" }}>

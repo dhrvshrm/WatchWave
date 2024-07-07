@@ -1,4 +1,4 @@
-export const ROUTES = ["/login", "/browse"];
+export const ROUTES = ["/login", "/browse", "/gpt-search"];
 
 // TMDB API kry and secret
 export const TMDB_ACCESS_TOKEN =
