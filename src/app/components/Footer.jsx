@@ -5,7 +5,7 @@ const STYLES = {
   footerContainer: {
     width: "100%",
     zIndex: 1,
-    backgroundColor: "black",
+    backgroundColor: "#000",
     justifyContent: "space-between",
     alignItems: "center",
     height: "6rem",
