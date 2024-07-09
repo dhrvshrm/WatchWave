@@ -45,17 +45,30 @@ export const Header = ({ logOutEnable = false }) => {
     }
   };
 
+  const handleGPTSearch = () => {
+    router.push("/gpt-search");
+  };
+
   return (
     <Stack direction="row" sx={STYLES.header}>
       <Image alt="logo" src={logo} width={200} height={105} />
       {logOutEnable && (
-        <Button
-          color="secondary"
-          onClick={handleSignOut}
-          sx={STYLES.logOutBtnStyle}
-        >
-          Log Out
-        </Button>
+        <Stack direction="row" spacing={2}>
+          <Button
+            color="primary"
+            onClick={handleGPTSearch}
+            sx={STYLES.logOutBtnStyle}
+          >
+            GPT Search
+          </Button>
+          <Button
+            color="secondary"
+            onClick={handleSignOut}
+            sx={STYLES.logOutBtnStyle}
+          >
+            Log Out
+          </Button>
+        </Stack>
       )}
     </Stack>
   );
