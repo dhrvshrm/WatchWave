@@ -117,7 +117,7 @@ export const LoginForm = () => {
 
         if (!validateName(formData.name)) {
           toast.error("Please enter a valid name.");
-          return;
+          // return;
         }
 
         const passwordError = validatePassword(formData.password);
@@ -134,7 +134,7 @@ export const LoginForm = () => {
         const user = userCredential.user;
         console.log(user.accessToken);
         setUser(formData);
-        setUserLoginAccessToken(user.accessToken);
+        // setUserLoginAccessToken(user.accessToken);
 
         setIsSignUp(false);
       } else {
