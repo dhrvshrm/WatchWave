@@ -26,7 +26,7 @@ export const MovieList = ({ movieData }) => {
     const container = containerRef.current;
     if (container) {
       container.addEventListener("wheel", (e) => {
-        container.scrollLeft += e.deltaY;
+        container.scrollLeft += e.deltaY; // scroll horizontally on wheel event
       });
     }
   }, []);
