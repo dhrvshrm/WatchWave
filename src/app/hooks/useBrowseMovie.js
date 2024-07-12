@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { TBMD_URL, TMDB_ACCESS_TOKEN } from "../utils";
 import { toast } from "react-toastify";
+import { TBMD_URL, TMDB_ACCESS_TOKEN } from "../constants";
 
 export const useMovieData = () => {
   const [movieData, setMovieData] = useState();

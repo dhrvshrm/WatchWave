@@ -2,7 +2,7 @@ import { Button, Stack } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 import { useRouter } from "next/navigation";
-import { getAuth, signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { auth } from "../utils";
 
 const logo = `https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png`;
@@ -45,17 +45,30 @@ export const Header = ({ logOutEnable = false }) => {
     }
   };
 
+  const handleGPTSearch = () => {
+    router.push("/gpt-search");
+  };
+
   return (
     <Stack direction="row" sx={STYLES.header}>
       <Image alt="logo" src={logo} width={200} height={105} />
       {logOutEnable && (
-        <Button
-          color="secondary"
-          onClick={handleSignOut}
-          sx={STYLES.logOutBtnStyle}
-        >
-          Log Out
-        </Button>
+        <Stack direction="row" spacing={2}>
+          <Button
+            color="primary"
+            onClick={handleGPTSearch}
+            sx={STYLES.logOutBtnStyle}
+          >
+            GPT Search
+          </Button>
+          <Button
+            color="secondary"
+            onClick={handleSignOut}
+            sx={STYLES.logOutBtnStyle}
+          >
+            Log Out
+          </Button>
+        </Stack>
       )}
     </Stack>
   );
