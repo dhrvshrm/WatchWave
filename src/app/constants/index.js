@@ -12,3 +12,7 @@ export const TBMD_URL =
 
 // TMDB Image URL
 export const TMDB_IMAGE_URL = "https://image.tmdb.org/t/p/w500/";
+
+// Netflix secret
+export const OPEN_AI_KEY =
+  "sk - None - BEOGQ02C1Pe0YQOR5BZuT3BlbkFJDjkHROAnpo432UwZBf4E";
