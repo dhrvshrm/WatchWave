@@ -24,6 +24,7 @@ const STYLES = {
 };
 
 export const MovieCard = ({ data }) => {
+  console.log({ data });
   return (
     <Stack sx={STYLES.cardContainer} direction="column">
       <Image

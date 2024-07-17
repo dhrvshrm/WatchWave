@@ -11,7 +11,7 @@ import {
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import openai from "../utils/openai";
-import Loader from "../components/Loader";
+import { MovieCard } from "../components/MovieCard";
 
 const STYLES = {
   page: {
@@ -70,6 +70,11 @@ const STYLES = {
     },
     borderRadius: "5px",
   },
+  cardContainer: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+  },
 };
 
 function SearchComponent({ setSearchText, handleSearch, searchText, loading }) {
@@ -98,7 +103,7 @@ function SearchComponent({ setSearchText, handleSearch, searchText, loading }) {
               <Typography variant="body1" sx={{ color: "white" }}>
                 Searching...{" "}
               </Typography>
-              <CircularProgress size={24} sx={{ ml: 1 }} />
+              <CircularProgress size={24} sx={{ ml: 1, color: "white" }} />
             </>
           ) : (
             "Search"
@@ -113,7 +118,7 @@ export default function Page() {
   const [searchText, setSearchText] = useState("");
   const [loading, setLoading] = useState(false);
   const [res, setRes] = useState(null);
-  console.log({ res });
+  console.log("res", res);
 
   const Header = dynamic(() =>
     import("../components/Header").then((mod) => mod.Header)
@@ -151,11 +156,18 @@ export default function Page() {
         " and need the movie/series details in json format and at least 10 items";
 
       console.log("gptQuery", gptQuery);
-      const chatCompletion = await openai.chat.completions.create({
-        messages: [{ role: "user", content: gptQuery }],
-        model: "gpt-3.5-turbo",
-      });
-      setRes(JSON.parse(chatCompletion.choices[0].message.content));
+      try {
+        const chatCompletion = await openai.chat.completions.create({
+          messages: [{ role: "user", content: gptQuery }],
+          model: "gpt-3.5-turbo",
+        });
+        const response = chatCompletion.choices[0].message.content;
+        console.log({ response });
+        const parsedResponse = JSON.parse(response);
+        setRes(parsedResponse?.movies);
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+      }
       setLoading(false);
     }
   };
@@ -170,7 +182,13 @@ export default function Page() {
           searchText={searchText}
           loading={loading}
         />
-        {/* <VignetteWrapper /> */}
+        {res && (
+          <Stack sx={STYLES.cardContainer}>
+            {res?.map((movie, index) => (
+              <MovieCard key={index} data={movie} />
+            ))}
+          </Stack>
+        )}
         <Footer />
       </Stack>
     );
