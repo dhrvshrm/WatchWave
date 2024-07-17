@@ -11,7 +11,7 @@ const STYLES = {
   header: {
     position: "sticky",
     top: 0,
-    zIndex: 100,
+    zIndex: 1,
     backgroundColor: "transparent",
     justifyContent: "space-between",
     alignItems: "center",

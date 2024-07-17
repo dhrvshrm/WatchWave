@@ -10,6 +10,7 @@ const STYLES = {
     alignItems: "center",
     height: "6rem",
     mt: "auto",
+    bottom: 0,
   },
 };
 
